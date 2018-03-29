@@ -1,0 +1,7 @@
+@ID:12345
+@Name:data1
+@address:N/A
+@webpage:https://www.youtube.com/watch?v=4GuqB1BQVr4
+@money:$$$$$$$
+@like:1
+@software:LineMaster
