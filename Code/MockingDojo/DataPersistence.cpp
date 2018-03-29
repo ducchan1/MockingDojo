@@ -50,20 +50,23 @@ void DataPersistence::loadFile()
         auto first_marker_pos = current_line.find_first_of('@');
         auto second_marker = current_line.find_first_of(':');
 
-        auto data_type = current_line.substr(first_marker_pos, second_marker);
-        auto data_value = current_line.substr(second_marker);
+        if (first_marker_pos != std::string::npos && second_marker != std::string::npos)
+        {
+            auto data_type = current_line.substr(first_marker_pos + 1, second_marker - 1);
+            auto data_value = current_line.substr(second_marker+1);
 
-        if (data_type == "ID")
-        {
-            id == data_value;
-        }
-        else if (data_type == "Name")
-        {
-            name = data_value;
-        }
-        else
-        {
-            data_values.emplace(data_type, data_value);
+            if (data_type == "ID")
+            {
+                id = data_value;
+            }
+            else if (data_type == "Name")
+            {
+                name = data_value;
+            }
+            else
+            {
+                data_values.emplace(data_type, data_value);
+            }
         }
     }
 

@@ -1,6 +1,8 @@
 #include "InternalDataUser.h"
 #include "DataPersistence.h"
 
+#include <algorithm>
+
 InternalDataUser::InternalDataUser(const InternalDataUser::Path& dir_path)
     :dir_path_(dir_path)
 {
@@ -14,7 +16,9 @@ InternalDataUser::~InternalDataUser()
 
 void InternalDataUser::changeData(const std::string& data_id, const std::string& data_type, const std::string& data_value)
 {
-    auto data_it = std::find(data_.begin(), data_.end(), [data_id](const InternalData& internal_data){return internal_data.getId() == data_id; });
+    auto data_it = std::find_if(data_.begin(), data_.end(), 
+        [&data_id](const InternalData &arg) {
+        return arg.getId() == data_id; });
 
     if (data_it != data_.end())
     {
