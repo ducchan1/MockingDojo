@@ -1,0 +1,27 @@
+############################################################
+#               build machine configuration                #
+#   .EXTERN_VERSION = folder containing the extern files   #
+#   .BUILD_REPOSITORY = path_to_binaries_repository        #
+#   .TOOLS_REPOSITORY = path_to_tools_repository           #
+#   .TOOLS_COMMIT = commit_or_branch_of_tools_repository   #
+#   .TOOLS_REPOSITORY = path_to_properties_repository          #
+#   .TOOLS_COMMIT = commit_or_branch_of_properties_repository  #
+############################################################
+
+.BUILD_REPOSITORY = //mfs.optelvision.local/logiciel/BuildMachine/Products/GMock/Build 
+.EXTERN_VERSION = //mfs.optelvision.local/logiciel/BuildMachine/Extern/None
+.TOOLS_REPOSITORY = \\mfs.optelvision.local\hgcanonical\build-machine\optel-tools
+.TOOLS_COMMIT = 1ec61bf57d6a
+.PROPERTIES_REPOSITORY = \\mfs.optelvision.local\hgcanonical\build-machine\properties
+.PROPERTIES_COMMIT = b03737a8ee91
+
+####################################################################
+#                          build order                             #
+#   1 - path of repository where to find source code               #
+#   2 - Unique name identifying project path under OPTEL_LIBS/src  #
+#   3 - Commit# or branch name to update project to                #
+#   4 - Solution file to build                                     #
+####################################################################
+
+//mfs.optelvision.local/hgcanonical/General/GMock GMock 2fcfda5a4d38 msvc/2013/gmock.sln
++ gtest/msvc_2013/gtest.sln

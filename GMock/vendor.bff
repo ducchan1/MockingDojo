@@ -1,0 +1,30 @@
+
+{
+    .VendorName = 'GMock'
+
+    .currentVendor = [
+        .Vendors_x86 = [
+            ."$VendorName$_1_7_0_3" = [
+                Using( .VendorBaseDef )
+                .VendorIncludePaths + '$VendorPath$\$VendorName$\1.7.0.3\include'
+                .VendorLibPaths     + '$VendorPath$\$VendorName$\1.7.0.3\lib\x86'
+            ]
+
+            ."$VendorName$" = ."$VendorName$_1_7_0_3"
+        ]
+
+        .Vendors_x64 = [
+            ."$VendorName$_1_7_0_3" = [
+                Using( .VendorBaseDef )
+                .VendorIncludePaths + '$VendorPath$\$VendorName$\1.7.0.3\include'
+                .VendorLibPaths     + '$VendorPath$\$VendorName$\1.7.0.3\lib\x64'
+            ]
+
+            ."$VendorName$" = ."$VendorName$_1_7_0_3"
+        ]
+    ]
+
+    // Add it to the list
+    ^VendorsList + .currentVendor
+    ^VendorsNames + .VendorName
+}

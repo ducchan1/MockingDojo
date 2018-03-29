@@ -1,0 +1,7 @@
+.INT = bin/*.*; DST = bin
+
+.INT = include/*.*; DST = include
+
+.INT = lib/Release/*.*; DST = lib
+.INT = lib/Debug/*.*; DST = lib
+
