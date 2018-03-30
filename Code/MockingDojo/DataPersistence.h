@@ -4,6 +4,7 @@
 
 #include <filesystem>
 #include <memory>
+#include <vector>
 
 class DataPersistence
 {
@@ -12,15 +13,15 @@ public:
     DataPersistence(const Path& data_path);
     ~DataPersistence();
 
-    const InternalData& getData() const;
+    const std::vector<InternalData>& getData() const;
     void saveData() const;
-    void updateData(const InternalData& new_data);
+    void updateData(const std::vector<InternalData>& new_data);
 
 private:
     void loadFile();
     std::string convertDataToString() const;
 
-    std::unique_ptr<InternalData> data_;
+    std::vector<InternalData> data_;
     Path data_path_;
 };
 

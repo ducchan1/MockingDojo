@@ -1,7 +1,0 @@
-@ID:01234
-@Name:prank
-@like:100
-@some_more:nothing
-@coffee:extra-strong
-@milk:no
-@webpage:https://en.wikipedia.org/wiki/Coffee

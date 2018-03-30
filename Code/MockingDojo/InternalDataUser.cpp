@@ -3,8 +3,8 @@
 
 #include <algorithm>
 
-InternalDataUser::InternalDataUser(const InternalDataUser::Path& dir_path)
-    :dir_path_(dir_path)
+InternalDataUser::InternalDataUser(const InternalDataUser::Path& data_path)
+    : data_path_(data_path)
 {
     load();
 }
@@ -59,20 +59,13 @@ const std::vector<InternalData>& InternalDataUser::getData() const
 
 void InternalDataUser::load()
 {
-    for (auto file = std::tr2::sys::recursive_directory_iterator(dir_path_); file != std::tr2::sys::recursive_directory_iterator(); ++file)
-    {
-        DataPersistence data_persistence(file->path());
-        data_.emplace_back(data_persistence.getData());
-    }
+    DataPersistence data_persistence(data_path_);
+    data_ = data_persistence.getData();
 }
 
 void InternalDataUser::save()
 {
-    std::tr2::sys::remove_all(dir_path_);
-    for (const auto& internal_data : data_)
-    {
-        DataPersistence data_persistence(dir_path_ / std::tr2::sys::path(internal_data.getId() + internal_data.getName() + ".txt"));
-        data_persistence.updateData(internal_data);
-        data_persistence.saveData();
-    }
+    DataPersistence data_persistence(data_path_);
+    data_persistence.updateData(data_);
+    data_persistence.saveData();
 }

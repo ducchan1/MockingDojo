@@ -4,7 +4,7 @@
 
 TEST(TestInternalDataUser, testGetDataNames)
 {
-    std::tr2::sys::path data_path("..\\MockingData");
+    std::tr2::sys::path data_path("..\\MockingData\\MockingData1.txt");
     InternalDataUser data_user(data_path);
 
     std::vector<std::string> data_names(data_user.getDataNames());

@@ -14,9 +14,9 @@ DataPersistence::~DataPersistence()
 {
 }
 
-const InternalData& DataPersistence::getData() const
+const std::vector<InternalData>& DataPersistence::getData() const
 {
-    return *data_;
+    return data_;
 }
 
 void DataPersistence::saveData() const
@@ -28,9 +28,9 @@ void DataPersistence::saveData() const
     out_file.close();
 }
 
-void DataPersistence::updateData(const InternalData& new_data)
+void DataPersistence::updateData(const std::vector<InternalData>& new_data)
 {
-    data_ = std::make_unique<InternalData>(new_data);
+    data_ = new_data;
 }
 
 void DataPersistence::loadFile()
@@ -41,6 +41,8 @@ void DataPersistence::loadFile()
 
     std::ifstream in_file;
     in_file.open(data_path_.string());
+
+    std::unique_ptr<InternalData> cur_data;
 
     while (!in_file.eof())
     {
@@ -62,31 +64,38 @@ void DataPersistence::loadFile()
             else if (data_type == "Name")
             {
                 name = data_value;
+
+                if (cur_data)
+                {
+                    data_.emplace_back(*cur_data);
+                }
+
+                cur_data = std::make_unique<InternalData>(id, name);
             }
             else
             {
-                data_values.emplace(data_type, data_value);
+                cur_data->setData(data_type, data_value);
             }
         }
     }
 
-    InternalData new_data(id, name);
-    new_data.setData(data_values);
-
-    updateData(new_data);
+    //adds last entry
+    data_.emplace_back(*cur_data);
 }
 
 std::string DataPersistence::convertDataToString() const
 {
     std::string converted_data;
 
-    converted_data += "@ID:" + data_->getId() + "\n";
-    converted_data += "@Name:" + data_->getName() + "\n";
-
-    for (auto data_entry : data_->getData())
+    for (const auto& cur_data : data_)
     {
-        converted_data += "@" + data_entry.first + ":" + data_entry.second + "\n";
-    }
+        converted_data += "@ID:" + cur_data.getId() + "\n";
+        converted_data += "@Name:" + cur_data.getName() + "\n";
 
+        for (auto data_entry : cur_data.getData())
+        {
+            converted_data += "@" + data_entry.first + ":" + data_entry.second + "\n";
+        }
+    }
     return converted_data;
 }

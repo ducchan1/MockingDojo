@@ -7,7 +7,7 @@ int main(int argc, char** argv)
     std::cout << "main called" << std::endl;
     std::cout << "loading data..." << std::endl;
 
-    std::tr2::sys::path data_path("..\\MockingData");
+    std::tr2::sys::path data_path("..\\MockingData\\MockingData1.txt");
     InternalDataUser data_user(data_path);
 
     std::vector <std::string> loaded_data_names(data_user.getDataNames());

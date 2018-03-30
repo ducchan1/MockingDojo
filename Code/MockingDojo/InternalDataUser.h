@@ -25,6 +25,6 @@ private:
     void save();
 
     std::vector<InternalData> data_;
-    Path dir_path_;
+    Path data_path_;
 };
 
