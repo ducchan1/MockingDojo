@@ -65,6 +65,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="DataPersistence.h" />
+    <ClInclude Include="IDataPersistence.h" />
     <ClInclude Include="InternalData.h" />
     <ClInclude Include="InternalDataUser.h" />
   </ItemGroup>

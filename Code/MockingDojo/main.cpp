@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "InternalDataUser.h"
+#include "DataPersistence.h"
 
 int main(int argc, char** argv)
 {
@@ -8,7 +9,8 @@ int main(int argc, char** argv)
     std::cout << "loading data..." << std::endl;
 
     std::tr2::sys::path data_path("..\\MockingData\\MockingData1.txt");
-    InternalDataUser data_user(data_path);
+    auto data_persistence = std::make_unique<DataPersistence>(data_path);
+    InternalDataUser data_user(std::move(data_persistence));
 
     std::vector <std::string> loaded_data_names(data_user.getDataNames());
     std::cout << "Found " << loaded_data_names.size() << " items" << std::endl;

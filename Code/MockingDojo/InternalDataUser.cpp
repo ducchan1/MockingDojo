@@ -2,10 +2,12 @@
 #include "DataPersistence.h"
 
 #include <algorithm>
+#include <assert.h>
 
-InternalDataUser::InternalDataUser(const InternalDataUser::Path& data_path)
-    : data_path_(data_path)
+InternalDataUser::InternalDataUser(std::unique_ptr<IDataPersistence> data_persistence)
+    : data_persistence_(std::move(data_persistence))
 {
+    assert(nullptr != data_persistence_);
     load();
 }
 
@@ -59,13 +61,11 @@ const std::vector<InternalData>& InternalDataUser::getData() const
 
 void InternalDataUser::load()
 {
-    DataPersistence data_persistence(data_path_);
-    data_ = data_persistence.getData();
+    data_ = data_persistence_->getData();
 }
 
 void InternalDataUser::save()
 {
-    DataPersistence data_persistence(data_path_);
-    data_persistence.updateData(data_);
-    data_persistence.saveData();
+    data_persistence_->updateData(data_);
+    data_persistence_->saveData();
 }
